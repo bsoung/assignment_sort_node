@@ -1,10 +1,10 @@
-const mergeSort = require('./merge_sort');
+const { mergeSort, mergeSortIterative } = require('./merge_sort');
 const insertionSort = require('./insertion_sort');
 const quickSort = require('./quick_sort');
 const bubbleSort = require('./bubble_sort');
 const selectionSort = require('./selection_sort');
 
-const ITERATIONS = 1000;
+// const ITERATIONS = 1;
 
 const testArr = [
 	121,
@@ -29,13 +29,13 @@ const testArrTwo = [4, 8, 2, 1, 13, 7, 21, 15, 9, 3];
 
 // console.log(mergeSort(testArr));
 
-const benchmark = (n, func, arr, desc) => {
+const benchmark = (func, arr, desc) => {
 	let arrCopy = arr.slice();
-	let start = +new Date();
 	console.log('Test running...');
-	for (let i = 0; i < n; i++) {
-		func(arrCopy);
-	}
+	let start = +new Date();
+	// for (let i = 0; i < 1; i++) {
+	func(arrCopy);
+	// }
 	let end = +new Date();
 	console.log(`Test ended. Result: ${end - start}ms for ${desc}`);
 };
@@ -63,29 +63,34 @@ const generateLargeUniqueArray = size => {
 
 const arrBig = generateLargeUniqueArray(100);
 const arrHuge = generateLargeUniqueArray(2000);
-const arrWtf = generateLargeUniqueArray(20000);
+const arrWtf = generateLargeUniqueArray(100000);
 
 //**** small arrays *****
-// benchmark(ITERATIONS, mergeSort, testArr, 'merge sort');
-// benchmark(ITERATIONS, insertionSort, testArr, 'insertion sort');
-// benchmark(ITERATIONS, quickSort, testArr, 'quick sort');
-// benchmark(ITERATIONS, bubbleSort, testArr, 'bubble sort');
-// benchmark(ITERATIONS, selectionSort, testArr, 'selection sort');
+// benchmark(mergeSort, testArr, 'merge sort');
+// benchmark(insertionSort, testArr, 'insertion sort');
+// benchmark(quickSort, testArr, 'quick sort');
+// benchmark(bubbleSort, testArr, 'bubble sort');
+// benchmark(selectionSort, testArr, 'selection sort');
 
 //**** larger arrays ******
-// benchmark(ITERATIONS, mergeSort, arrBig, 'merge sort');
-// benchmark(ITERATIONS, insertionSort, arrBig, 'insertion sort');
-// benchmark(ITERATIONS, quickSort, arrBig, 'quick sort');
-// benchmark(ITERATIONS, bubbleSort, arrBig, 'bubble sort');
-// benchmark(ITERATIONS, selectionSort, arrBig, 'selection sort');
+// benchmark(mergeSort, arrBig, 'merge sort');
+// benchmark(insertionSort, arrBig, 'insertion sort');
+// benchmark(quickSort, arrBig, 'quick sort');
+// benchmark(bubbleSort, arrBig, 'bubble sort');
+// benchmark(selectionSort, arrBig, 'selection sort');
 
 //**** much larger arrays ******
-benchmark(ITERATIONS, mergeSort, arrHuge, 'merge sort');
-benchmark(ITERATIONS, insertionSort, arrHuge, 'insertion sort');
-benchmark(ITERATIONS, quickSort, arrHuge, 'quick sort');
-benchmark(ITERATIONS, bubbleSort, arrHuge, 'bubble sort');
-benchmark(ITERATIONS, selectionSort, arrHuge, 'selection sort');
+// benchmark(mergeSort, arrHuge, 'merge sort');
+// benchmark(mergeSortIterative, arrHuge, 'merge sort interative');
+// benchmark(insertionSort, arrHuge, 'insertion sort');
+// benchmark(quickSort, arrHuge, 'quick sort');
+// benchmark(bubbleSort, arrHuge, 'bubble sort');
+// benchmark(selectionSort, arrHuge, 'selection sort');
 
-//*** way too big arrays *** (no bubble sort)
-// benchmark(ITERATIONS, mergeSort, arrWtf, 'merge sort');
-// benchmark(ITERATIONS, insertionSort, arrWtf, 'insertion sort');
+// *** way too big arrays *** (no bubble sort)
+benchmark(mergeSort, arrWtf, 'merge sort');
+benchmark(mergeSortIterative, arrWtf, 'merge sort interative');
+benchmark(insertionSort, arrWtf, 'insertion sort');
+benchmark(quickSort, arrWtf, 'quick sort');
+benchmark(bubbleSort, arrWtf, 'bubble sort');
+benchmark(selectionSort, arrWtf, 'selection sort');

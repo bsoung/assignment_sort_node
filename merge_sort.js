@@ -95,7 +95,7 @@ const mergeSortIterative = arr => {
 			// merge the pairs
 			if (subArrays[i + 1])
 				output.push(mergeWithPointers(subArrays[i], subArrays[i + 1]));
-			else result.push(subArrays[i]);
+			else output.push(subArrays[i]);
 		}
 
 		subArrays = output;
@@ -107,4 +107,7 @@ const mergeSortIterative = arr => {
 testArr = [121, 2, 3, 2, 13, 4, 8, 12, 2134, 128312, 1, 34, 31, 63, 4734, 34];
 // console.log(mergeSortIterative(testArr));
 
-module.exports = mergeSort;
+module.exports = {
+	mergeSort,
+	mergeSortIterative
+};

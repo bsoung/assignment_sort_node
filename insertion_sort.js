@@ -17,7 +17,6 @@ const insertionSort = arr => {
 
 		// j represents the sorted elements length
 		let j = i - 1;
-		// console.log(j, 'j - 1 is currently');
 
 		while (j >= 0 && arr[j] > temp) {
 			// console.log(arr[j], ' is greater than ', temp);
