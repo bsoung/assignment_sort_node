@@ -17,28 +17,46 @@
 // push left[leftPointer] into output
 // increment leftPointer
 
+const leftTestArr = [1, 22, 34, 50];
+const rightTestArr = [14, 23, 27, 54];
+
 const merge = (left, right) => {
-	// 	let leftCopy = left.slice();
-	// 	let rightCopy = right.slice();
 	let output = [];
 
 	while (left.length > 0 && right.length > 0) {
-		if (left[0] < right[0]) {
-			output.push(left.shift());
-		} else {
-			output.push(right.shift());
-		}
+		output.push(left[0] < right[0] ? left.shift() : right.shift());
 	}
 
-	// console.log(output);
 	// if one arr is empty we can concat them assuming lists are ordered
 	return output.concat(left, right);
 };
 
-const leftTestArr = [1, 22, 34, 50];
-const rightTestArr = [14, 23, 27, 54];
+// keep track of two pointers for left and right array
+// update each accordingly
 
-// merge(leftTestArr, rightTestArr);
+const mergeWithPointers = (left, right) => {
+	const arrslength = left.length + right.length;
+
+	let output = [];
+	let leftPointer = 0;
+	let rightPointer = 0;
+
+	while (output.length < arrslength) {
+		// handle when one side is empty
+		// else compare each element from both lists
+		if (leftPointer === left.length)
+			output = output.concat(right.slice(rightPointer));
+		else if (rightPointer === right.length)
+			output = output.concat(left.slice(leftPointer));
+		else if (left[leftPointer] <= right[rightPointer])
+			output.push(left[leftPointer++]);
+		else output.push(right[rightPointer++]);
+	}
+
+	return output;
+};
+
+// console.log(mergeWithPointers(leftTestArr, rightTestArr));
 
 /**
  * Merge Sort
@@ -48,32 +66,45 @@ const rightTestArr = [14, 23, 27, 54];
  * grab the left arr by using slice on index 0 to middle
  * grab right arr using same method
  * call merge on our left and right arr
+ * O(n * log(n)) where n is the merge and log(n) is the splitting
  */
 
 const mergeSort = arr => {
 	if (arr.length < 2) {
-		// console.log(arr, 'in base case');
-		// once we get here, we've divide the array into multiple sorted lists of length 1
 		return arr;
 	}
 
-	// begin dividing
+	// begin dividing and conquering
 	let middle = Math.floor(arr.length / 2);
 	let left = mergeSort(arr.slice(0, middle));
 	let right = mergeSort(arr.slice(middle, arr.length));
 
-	console.log(
-		arr[middle],
-		'middle',
-		left,
-		'left',
-		right,
-		'right',
-		' ---------- each step'
-	);
+	return mergeWithPointers(left, right);
+};
 
-	return merge(left, right);
+const mergeSortIterative = arr => {
+	// for each element create an array
+	let subArrays = arr.map(el => [el]);
+
+	// check if there's more than one sub array
+	while (subArrays.length > 1) {
+		let output = [];
+
+		// adjacent arrays - each pair of subarrays, so count by twos
+		for (let i = 0; i < subArrays.length; i += 2) {
+			// merge the pairs
+			if (subArrays[i + 1])
+				output.push(mergeWithPointers(subArrays[i], subArrays[i + 1]));
+			else result.push(subArrays[i]);
+		}
+
+		subArrays = output;
+	}
+
+	return subArrays[0];
 };
 
 testArr = [121, 2, 3, 2, 13, 4, 8, 12, 2134, 128312, 1, 34, 31, 63, 4734, 34];
-console.log(mergeSort(testArr));
+// console.log(mergeSortIterative(testArr));
+
+module.exports = mergeSort;

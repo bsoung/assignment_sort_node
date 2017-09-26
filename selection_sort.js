@@ -21,11 +21,10 @@ const selectionSort = arr => {
 		temp = arr[i];
 		arr[i] = arr[minIndex];
 		arr[minIndex] = temp;
-
-		console.log(arr, 'arr at each step');
 	}
 
 	return arr;
 };
 
-selectionSort(testArr);
+// selectionSort(testArr);
+module.exports = selectionSort;

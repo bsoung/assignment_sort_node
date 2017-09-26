@@ -52,11 +52,13 @@ const bubbleSortTwo = arr => {
 			}
 		}
 
-		console.log(arr, 'array at each step');
 		unsortedLength--;
 	}
 
 	return arr;
 };
 
-bubbleSortTwo(testArr);
+// bubbleSortTwo(testArr);
+module.exports = bubbleSortTwo;
+
+
